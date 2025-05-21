@@ -14,25 +14,16 @@ class AuthorController extends Controller
 
     public function store(Request $request)
     {
-        $author = Author::create($request->all());
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'bio' => 'nullable|string',
+        ]);
+
+        $author = Author::create([
+            'name' => $request->name,
+            'bio' => $request->bio,
+        ]);
+
         return response()->json($author, 201);
-    }
-
-    public function show($id)
-    {
-        return response()->json(Author::findOrFail($id));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $author = Author::findOrFail($id);
-        $author->update($request->all());
-        return response()->json($author);
-    }
-
-    public function destroy($id)
-    {
-        Author::destroy($id);
-        return response()->json(null, 204);
     }
 }
