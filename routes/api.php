@@ -14,3 +14,6 @@ Route::post('/genres', [GenreController::class, 'store']);
 
 Route::get('/authors', [AuthorController::class, 'index']);
 Route::post('/authors', [AuthorController::class, 'store']);
+
+Route::apiResource('genres', GenreController::class);
+Route::apiResource('authors', AuthorController::class);
